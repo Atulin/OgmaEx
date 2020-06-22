@@ -1,0 +1,39 @@
+version: "3.4"
+
+services:
+
+    # Web
+    web:
+        build:
+            context: .
+        env_file: 
+            - ./.env
+        ports: 
+            - "4000:4000"
+        networks:
+            - ogma
+        depends_on:
+            - db
+
+    # Database
+    db:
+        image: postgres:latest
+        ports:
+            - "5432:5432"
+        env_file: 
+            - ./postgres/.env
+        restart: always
+        networks:
+            - ogma
+        volumes: 
+            - pgdata:/var/lib/postgresql/data
+
+
+# Networks
+networks:
+    ogma:
+        driver: bridge
+
+# Volumes
+volumes: 
+    pgdata:
