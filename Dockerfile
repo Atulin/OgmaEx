@@ -2,8 +2,8 @@
 FROM elixir:latest
 
 # Install Postgres
-RUN apt-get update
-RUN apt-get install -y postgresql-client
+RUN apt-get update && \
+    apt-get install -y postgresql-client
 
 # Create app dir and copy project
 RUN mkdir /ogma
@@ -23,3 +23,6 @@ RUN mix do compile
 # Create db
 RUN chmod +x /ogma/entrypoint.sh
 CMD ["/ogma/entrypoint.sh"]
+# RUN mix ecto.create && \
+#     mix ecto.migrate && \
+#     mix run priv/repo/seeds.exs

@@ -17,7 +17,7 @@ services:
 
     # Database
     db:
-        image: postgres:latest
+        image: postgres
         ports:
             - "5432:5432"
         env_file: 
@@ -27,6 +27,12 @@ services:
             - ogma
         volumes: 
             - pgdata:/var/lib/postgresql/data
+
+    # PgAdmin
+    pgadmin:
+        image: chorss/docker-pgadmin4
+        ports:
+          - 5050:5050
 
 
 # Networks
