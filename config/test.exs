@@ -2,10 +2,10 @@ use Mix.Config
 
 # Configure your database
 config :ogmaEx, OgmaEx.Repo,
-  username: "postgres",
-  password: "postgres",
-  database: "ogmaex_test",
-  hostname: "localhost",
+  username: System.get_env("DBUSER"),
+  password: System.get_env("DBPASS"),
+  database: System.get_env("DBNAME"),
+  hostname: System.get_env("DBHOST"),
   pool: Ecto.Adapters.SQL.Sandbox
 
 # We don't run a server during test. If one is required,
