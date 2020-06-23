@@ -3,7 +3,8 @@ FROM elixir:latest
 
 # Install Postgres
 RUN apt-get update && \
-    apt-get install -y postgresql-client
+    apt-get install -y postgresql-client && \
+    apt-get install -y inotify-tools
 
 # Create app dir and copy project
 RUN mkdir /ogma
@@ -17,12 +18,13 @@ RUN mix local.rebar
 # Install deps
 RUN mix deps.get
 
-# Compile
-RUN mix do compile
-
 # Create db
 RUN chmod +x /ogma/entrypoint.sh
 CMD ["/ogma/entrypoint.sh"]
 # RUN mix ecto.create && \
 #     mix ecto.migrate && \
 #     mix run priv/repo/seeds.exs
+
+# Compile
+RUN mix do compile
+RUN mix phx.server
